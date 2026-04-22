@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        #painel { 
+            position: fixed; top: 10px; left: 10px; z-index: 9999; 
+            background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+            padding: 18px; border-radius: 20px; font-family: sans-serif; 
+            width: 270px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #painel.minimizado { transform: translateX(-285px); }
+        #btn-toggle { 
+            position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white;
+            border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; font-size: 20px;
+        }
+        .btn-tech {
+            width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 10px;
+            background: #1b5e20; color: white; font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s;
+        }
+        .btn-tech:active { transform: scale(0.96); }
+        .user-loc { width: 14px; height: 14px; background: #007bff; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 12px #007bff; animation: p 1.5s infinite; }
+        @keyframes p { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+        .rotulo-hd { color: black !important; font-weight: 900 !important; font-size: 16px !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; pointer-events: none; }
+    </style>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_bc7b2e347449f00af9ebf84881f8e8ca {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div id="painel">
+        <button id="btn-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        <div style="text-align:center; margin-bottom:12px;">
+            <b style="color:#1b5e20; font-size:16px;">SISTEMA TECH CLEALCO</b><br>
+            <span style="font-size:10px; color:#666;">Versão v15_2026</span>
+        </div>
+        <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda...">
+        <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
+        <button class="btn-tech" onclick="irParaRota()"><i class="fas fa-route"></i> ROTA NO GOOGLE</button>
+        <button class="btn-tech" style="background:#444" onclick="minhaPosicao()"><i class="fas fa-location-crosshairs"></i> ONDE ESTOU?</button>
+        <div style="font-size: 11px; margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+            <label><input type="checkbox" id="chk_divisas" checked onclick="toggleDivisas()"> Divisas</label>
+            <label><input type="checkbox" id="chk_satelite" checked onclick="toggleSatelite()"> Satélite</label>
+            <label><input type="radio" name="tema" onclick="mudarTema(1)" checked> Tiros</label>
+            <label><input type="radio" name="tema" onclick="mudarTema(2)"> Talhões</label>
+        </div>
+        <button class="btn-tech" style="background:#ddd; color:#333; height:30px; font-size:10px;" onclick="location.reload(true)">FORÇAR ATUALIZAÇÃO</button>
+    </div>
+    
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+            reg.onupdatefound = () => {
+                const newWorker = reg.installing;
+                newWorker.onstatechange = () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        if (confirm("Nova base de dados Clealco detectada! Atualizar agora?")) window.location.reload();
+                    }
+                };
+            };
+        });
+    }
+
+    var mapObj, userMarker, farmCenter = null, tilesCarregados = new Set(), filtroFazenda = "", temaAtivo = 1, camadaDivisas = null, camadasLinhas = [], marcadoresLabels = [];
+
+    function toggleMenu() { document.getElementById('painel').classList.toggle('minimizado'); }
+
+    $(document).ready(function() {
+        setTimeout(function() {
+            mapObj = window[document.querySelector('.folium-map').id];
+            mapObj.createPane('pane_divisas').style.zIndex = 650;
+            $.getJSON("labels.json", data => data.forEach(l => {
+                marcadoresLabels.push(L.marker([l.lat, l.lng], { icon: L.divIcon({ className: 'rotulo-hd', html: l.talhao }), alt: l.fazenda.toString().toUpperCase() }));
+            }));
+            $.getJSON("manifesto.json", data => {
+                mapObj.on('moveend', () => scanTiles(data));
+                scanTiles(data);
+            });
+        }, 800);
+    });
+
+    function atualizarMapa() {
+        var val = document.getElementById('input_fazenda').value.trim().toUpperCase();
+        if (!val || val === filtroFazenda) return;
+        filtroFazenda = val;
+        if (camadaDivisas) mapObj.removeLayer(camadaDivisas);
+        $.getJSON("divisas_split/divisas_" + filtroFazenda.replace(/ /g, "_") + ".json", data => {
+            camadaDivisas = L.geoJson(data, { pane: 'pane_divisas', style: { color: "white", weight: 2, fillOpacity: 0.1 }, onEachFeature: (f,l) => {
+                let h = "<b>INFO</b><hr>";
+                for(let k in f.properties) h += "<b>"+k+":</b> "+f.properties[k]+"<br>";
+                l.bindPopup(h);
+            }}).addTo(mapObj);
+            farmCenter = camadaDivisas.getBounds().getCenter();
+            mapObj.fitBounds(camadaDivisas.getBounds());
+        });
+        refreshVisual();
+    }
+
+    function refreshVisual() {
+        let s = (filtroFazenda !== "");
+        camadasLinhas.forEach(c => c.eachLayer(l => {
+            let p = l.feature.properties;
+            let m = s && p['FAZENDA'].toString().trim().toUpperCase() === filtroFazenda;
+            l.setStyle({ opacity: m ? 0.8 : 0, weight: m ? 1 : 0, color: (temaAtivo == 1 ? getCorTiro(p['CLASSE']) : p.color_talhao), interactive: m });
+        }));
+        marcadoresLabels.forEach(m => { if(s && m.options.alt === filtroFazenda) m.addTo(mapObj); else mapObj.removeLayer(m); });
+    }
+
+    function getCorTiro(v) { return v <= 150 ? '#ff0000' : v <= 300 ? '#ffff00' : v <= 450 ? '#00ff00' : '#00fffa'; }
+
+    function scanTiles(manifesto) {
+        if (!filtroFazenda) return;
+        let vB = mapObj.getBounds();
+        manifesto.forEach(t => {
+            if (vB.intersects(L.latLngBounds(t.bounds)) && !tilesCarregados.has(t.arquivo)) {
+                tilesCarregados.add(t.arquivo);
+                $.getJSON("tiles/" + t.arquivo, geo => {
+                    camadasLinhas.push(L.geoJson(geo, { onEachFeature: (f,l) => l.bindPopup("Comp: "+f.properties.COMP_M.toFixed(1)+"m") }).addTo(mapObj));
+                    refreshVisual();
+                });
+            }
+        });
+    }
+
+    function minhaPosicao() {
+        mapObj.locate({setView: true, maxZoom: 16});
+        mapObj.on('locationfound', e => {
+            if (userMarker) mapObj.removeLayer(userMarker);
+            userMarker = L.marker(e.latlng, { icon: L.divIcon({ className: 'user-loc' }) }).addTo(mapObj);
+        });
+    }
+
+    function irParaRota() {
+        if (!farmCenter) return alert("Selecione uma fazenda!");
+        window.open("https://www.google.com/maps/dir/?api=1&destination=" + farmCenter.lat + "," + farmCenter.lng);
+    }
+
+    function mudarTema(t) { temaAtivo = t; refreshVisual(); }
+    function toggleDivisas() { if(camadaDivisas) { if(document.getElementById('chk_divisas').checked) mapObj.addLayer(camadaDivisas); else mapObj.removeLayer(camadaDivisas); } }
+    function toggleSatelite() { mapObj.eachLayer(l => { if(l._url && l._url.includes('google')) { if(document.getElementById('chk_satelite').checked) mapObj.addLayer(l); else mapObj.removeLayer(l); } }); }
+    
+    </script>
+    
+    
+            <div class="folium-map" id="map_bc7b2e347449f00af9ebf84881f8e8ca" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_bc7b2e347449f00af9ebf84881f8e8ca = L.map(
+                "map_bc7b2e347449f00af9ebf84881f8e8ca",
+                {
+                    center: [-21.57265, -50.37255],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 15,
+  "zoomControl": true,
+  "preferCanvas": true,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_9152407dbb154646cd3e57f4a8cfa9df = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 22,
+  "maxNativeZoom": 22,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_9152407dbb154646cd3e57f4a8cfa9df.addTo(map_bc7b2e347449f00af9ebf84881f8e8ca);
+        
+    
+            var tile_layer_6496f40810f8f8a141fb02de89345b02 = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
+                {
+  "minZoom": 0,
+  "maxZoom": 22,
+  "maxNativeZoom": 22,
+  "noWrap": false,
+  "attribution": "Google",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_6496f40810f8f8a141fb02de89345b02.addTo(map_bc7b2e347449f00af9ebf84881f8e8ca);
+        
+</script>
+</html>
