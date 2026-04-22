@@ -18,7 +18,6 @@
         #btn-toggle { position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white; border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; }
         .btn-tech { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 10px; background: #1b5e20; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         
-        /* ESTILO DO PONTO DE LOCALIZAÇÃO (AGORA VISÍVEL) */
         .user-loc { 
             width: 15px !important; height: 15px !important; 
             background: #007bff; border: 3px solid white; border-radius: 50%; 
@@ -44,7 +43,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_57911ce1bea25e402557bfdac8c79344 {
+                #map_bd68a11dc4bf753bb333ca5915942621 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -84,8 +83,8 @@
     <div id="painel">
         <button id="btn-toggle" onclick="toggleMenu()">☰</button>
         <div style="text-align:center; margin-bottom:12px;">
-            <b style="color:#1b5e20; font-size:16px;">COLHEITA CLEALCO</b><br>
-            <span style="font-size:10px; color:#666;">Versão v16_GPS_OK</span>
+            <b style="color:#1b5e20; font-size:16px;">GESTOR CLEALCO</b><br>
+            <span style="font-size:10px; color:#666;">Versão v21</span>
         </div>
         <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda...">
         <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
@@ -111,12 +110,14 @@
     $(document).ready(function() {
         setTimeout(function() {
             mapObj = window[document.querySelector('.folium-map').id];
-            // Camada VIP para o GPS ficar no topo de tudo
             mapObj.createPane('pane_gps').style.zIndex = 1000;
             mapObj.createPane('pane_divisas').style.zIndex = 650;
             
             $.getJSON("labels.json", data => data.forEach(l => {
-                marcadoresLabels.push(L.marker([l.lat, l.lng], { icon: L.divIcon({ className: 'rotulo-hd', html: l.talhao }), alt: l.fazenda.toString().toUpperCase() }));
+                marcadoresLabels.push(L.marker([l.lat, l.lng], { 
+                    icon: L.divIcon({ className: 'rotulo-hd', html: l.talhao }), 
+                    alt: l.fazenda.toString().toUpperCase() 
+                }));
             }));
             $.getJSON("manifesto.json", data => {
                 mapObj.on('moveend', () => scanTiles(data));
@@ -147,11 +148,17 @@
         camadasLinhas.forEach(c => c.eachLayer(l => {
             let p = l.feature.properties;
             let m = s && p['FAZENDA'].toString().trim().toUpperCase() === filtroFazenda;
-            // LINHAS: Sem rótulo, apenas estilo e popup de metragem
             l.setStyle({ opacity: m ? 0.8 : 0, weight: m ? 1 : 0, color: (temaAtivo == 1 ? getCorTiro(p['CLASSE']) : p.color_talhao), interactive: m });
         }));
-        // RÓTULOS: Apenas os centróides dos talhões (vêm do labels.json)
-        marcadoresLabels.forEach(m => { if(s && m.options.alt === filtroFazenda) m.addTo(mapObj); else mapObj.removeLayer(m); });
+        
+        // AJUSTE: Rótulo só aparece se for Tema 2 (Talhões)
+        marcadoresLabels.forEach(m => { 
+            if(s && temaAtivo == 2 && m.options.alt === filtroFazenda) {
+                m.addTo(mapObj); 
+            } else {
+                mapObj.removeLayer(m); 
+            }
+        });
     }
 
     function getCorTiro(v) { return v <= 150 ? '#ff0000' : v <= 300 ? '#ffff00' : v <= 450 ? '#00ff00' : '#00fffa'; }
@@ -163,7 +170,6 @@
             if (vB.intersects(L.latLngBounds(t.bounds)) && !tilesCarregados.has(t.arquivo)) {
                 tilesCarregados.add(t.arquivo);
                 $.getJSON("tiles/" + t.arquivo, geo => {
-                    // Aqui as linhas ganham apenas o popup, zero rótulos estáticos
                     camadasLinhas.push(L.geoJson(geo, { 
                         onEachFeature: (f,l) => l.bindPopup("Comp: "+f.properties.COMP_M.toFixed(1)+"m") 
                     }).addTo(mapObj));
@@ -177,13 +183,11 @@
         mapObj.locate({setView: true, maxZoom: 18, enableHighAccuracy: true});
         mapObj.on('locationfound', e => {
             if (userMarker) mapObj.removeLayer(userMarker);
-            // Criando o ponto azul no pane_gps para garantir visibilidade
             userMarker = L.marker(e.latlng, { 
                 icon: L.divIcon({ className: 'user-loc', iconSize: [15, 15] }),
                 pane: 'pane_gps' 
             }).addTo(mapObj);
         });
-        mapObj.on('locationerror', e => alert("GPS indisponível: " + e.message));
     }
 
     function irParaRota() {
@@ -198,14 +202,14 @@
     </script>
     
     
-            <div class="folium-map" id="map_57911ce1bea25e402557bfdac8c79344" ></div>
+            <div class="folium-map" id="map_bd68a11dc4bf753bb333ca5915942621" ></div>
         
 </body>
 <script>
     
     
-            var map_57911ce1bea25e402557bfdac8c79344 = L.map(
-                "map_57911ce1bea25e402557bfdac8c79344",
+            var map_bd68a11dc4bf753bb333ca5915942621 = L.map(
+                "map_bd68a11dc4bf753bb333ca5915942621",
                 {
                     center: [-21.57265, -50.37255],
                     crs: L.CRS.EPSG3857,
@@ -222,7 +226,7 @@
 
         
     
-            var tile_layer_f3a2af54666da547048bafedd2a3a470 = L.tileLayer(
+            var tile_layer_b0aa266abf331ad1b1b97f636278d0ec = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -239,10 +243,10 @@
             );
         
     
-            tile_layer_f3a2af54666da547048bafedd2a3a470.addTo(map_57911ce1bea25e402557bfdac8c79344);
+            tile_layer_b0aa266abf331ad1b1b97f636278d0ec.addTo(map_bd68a11dc4bf753bb333ca5915942621);
         
     
-            var tile_layer_80b955ebe321726ffd4c5c70ea576f38 = L.tileLayer(
+            var tile_layer_bd524e649243f235376167e8accf5fe6 = L.tileLayer(
                 "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
                 {
   "minZoom": 0,
@@ -259,7 +263,7 @@
             );
         
     
-            tile_layer_80b955ebe321726ffd4c5c70ea576f38.addTo(map_57911ce1bea25e402557bfdac8c79344);
+            tile_layer_bd524e649243f235376167e8accf5fe6.addTo(map_bd68a11dc4bf753bb333ca5915942621);
         
 </script>
 </html>
