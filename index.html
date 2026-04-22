@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         #painel { 
-            position: fixed; top: 10px; left: 10px; z-index: 9999; 
+            position: fixed; top: 10px; left: 10px; z-index: 11000; 
             background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
             padding: 18px; border-radius: 20px; font-family: sans-serif; 
             width: 270px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4);
@@ -25,7 +25,12 @@
         }
         @keyframes pulse-gps { 0% { box-shadow: 0 0 0 0 rgba(0,123,255,0.7); } 70% { box-shadow: 0 0 0 15px rgba(0,123,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); } }
         
-        .rotulo-hd { color: black !important; font-weight: 900 !important; font-size: 16px !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; pointer-events: none; }
+        /* RÓTULOS SEMPRE POR CIMA DAS DIVISAS */
+        .rotulo-hd { 
+            color: black !important; font-weight: 900 !important; font-size: 16px !important; 
+            text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; 
+            pointer-events: none; background: none !important; border: none !important; 
+        }
     </style>
     
     
@@ -43,7 +48,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_bd68a11dc4bf753bb333ca5915942621 {
+                #map_cb8dcf7f218564c2e22d7147934f7951 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -84,7 +89,7 @@
         <button id="btn-toggle" onclick="toggleMenu()">☰</button>
         <div style="text-align:center; margin-bottom:12px;">
             <b style="color:#1b5e20; font-size:16px;">GESTOR CLEALCO</b><br>
-            <span style="font-size:10px; color:#666;">Versão v21</span>
+            <span style="font-size:10px; color:#666;">Versão v22</span>
         </div>
         <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda...">
         <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
@@ -110,13 +115,17 @@
     $(document).ready(function() {
         setTimeout(function() {
             mapObj = window[document.querySelector('.folium-map').id];
-            mapObj.createPane('pane_gps').style.zIndex = 1000;
-            mapObj.createPane('pane_divisas').style.zIndex = 650;
+            
+            // CRIAÇÃO DA HIERARQUIA DE PANES (ORDEM DAS CAMADAS)
+            mapObj.createPane('pane_divisas').style.zIndex = 600;  // Camada de baixo (Divisas)
+            mapObj.createPane('pane_labels').style.zIndex = 800;   // Camada do meio (Rótulos)
+            mapObj.createPane('pane_gps').style.zIndex = 1000;     // Camada do topo (GPS)
             
             $.getJSON("labels.json", data => data.forEach(l => {
                 marcadoresLabels.push(L.marker([l.lat, l.lng], { 
                     icon: L.divIcon({ className: 'rotulo-hd', html: l.talhao }), 
-                    alt: l.fazenda.toString().toUpperCase() 
+                    alt: l.fazenda.toString().toUpperCase(),
+                    pane: 'pane_labels' // Garante que o rótulo fica no pane superior
                 }));
             }));
             $.getJSON("manifesto.json", data => {
@@ -132,11 +141,15 @@
         filtroFazenda = val;
         if (camadaDivisas) mapObj.removeLayer(camadaDivisas);
         $.getJSON("divisas_split/divisas_" + filtroFazenda.replace(/ /g, "_") + ".json", data => {
-            camadaDivisas = L.geoJson(data, { pane: 'pane_divisas', style: { color: "white", weight: 2, fillOpacity: 0.1 }, onEachFeature: (f,l) => {
-                let h = "<b>INFO</b><hr>";
-                for(let k in f.properties) h += "<b>"+k+":</b> "+f.properties[k]+"<br>";
-                l.bindPopup(h);
-            }}).addTo(mapObj);
+            camadaDivisas = L.geoJson(data, { 
+                pane: 'pane_divisas', // Divisa fica no pane inferior
+                style: { color: "black", weight: 3, fillOpacity: 0.1 }, // COR PRETA AQUI
+                onEachFeature: (f,l) => {
+                    let h = "<b>INFO</b><hr>";
+                    for(let k in f.properties) h += "<b>"+k+":</b> "+f.properties[k]+"<br>";
+                    l.bindPopup(h);
+                }
+            }).addTo(mapObj);
             farmCenter = camadaDivisas.getBounds().getCenter();
             mapObj.fitBounds(camadaDivisas.getBounds());
         });
@@ -151,7 +164,6 @@
             l.setStyle({ opacity: m ? 0.8 : 0, weight: m ? 1 : 0, color: (temaAtivo == 1 ? getCorTiro(p['CLASSE']) : p.color_talhao), interactive: m });
         }));
         
-        // AJUSTE: Rótulo só aparece se for Tema 2 (Talhões)
         marcadoresLabels.forEach(m => { 
             if(s && temaAtivo == 2 && m.options.alt === filtroFazenda) {
                 m.addTo(mapObj); 
@@ -202,14 +214,14 @@
     </script>
     
     
-            <div class="folium-map" id="map_bd68a11dc4bf753bb333ca5915942621" ></div>
+            <div class="folium-map" id="map_cb8dcf7f218564c2e22d7147934f7951" ></div>
         
 </body>
 <script>
     
     
-            var map_bd68a11dc4bf753bb333ca5915942621 = L.map(
-                "map_bd68a11dc4bf753bb333ca5915942621",
+            var map_cb8dcf7f218564c2e22d7147934f7951 = L.map(
+                "map_cb8dcf7f218564c2e22d7147934f7951",
                 {
                     center: [-21.57265, -50.37255],
                     crs: L.CRS.EPSG3857,
@@ -226,7 +238,7 @@
 
         
     
-            var tile_layer_b0aa266abf331ad1b1b97f636278d0ec = L.tileLayer(
+            var tile_layer_e4ccd6d971ede365e1f24094001b7b24 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -243,10 +255,10 @@
             );
         
     
-            tile_layer_b0aa266abf331ad1b1b97f636278d0ec.addTo(map_bd68a11dc4bf753bb333ca5915942621);
+            tile_layer_e4ccd6d971ede365e1f24094001b7b24.addTo(map_cb8dcf7f218564c2e22d7147934f7951);
         
     
-            var tile_layer_bd524e649243f235376167e8accf5fe6 = L.tileLayer(
+            var tile_layer_6edaf68ff24263f4d1414cda12bc67d6 = L.tileLayer(
                 "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
                 {
   "minZoom": 0,
@@ -263,7 +275,7 @@
             );
         
     
-            tile_layer_bd524e649243f235376167e8accf5fe6.addTo(map_bd68a11dc4bf753bb333ca5915942621);
+            tile_layer_6edaf68ff24263f4d1414cda12bc67d6.addTo(map_cb8dcf7f218564c2e22d7147934f7951);
         
 </script>
 </html>
