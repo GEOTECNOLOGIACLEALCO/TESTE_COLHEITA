@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_307924",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "FAZENDA SAO JOSE", "ZONA": 1, "TALHAO": 1, "AREA_TOTAL": 12.041007105100528, "FAZENDA": "307924" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25708, -21.26975 ], [ -50.25937, -21.27231 ], [ -50.2617, -21.2702 ], [ -50.26143, -21.26991 ], [ -50.26122, -21.26971 ], [ -50.26081, -21.2692 ], [ -50.26012, -21.26842 ], [ -50.25953, -21.2678 ], [ -50.25708, -21.26975 ] ] ] } }
+]
+}
