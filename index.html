@@ -12,21 +12,20 @@
             background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
             padding: 18px; border-radius: 20px; font-family: sans-serif; 
             width: 270px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.4);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.3s;
         }
         #painel.minimizado { transform: translateX(-285px); }
-        #btn-toggle { 
-            position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white;
-            border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; font-size: 20px;
+        #btn-toggle { position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white; border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; }
+        .btn-tech { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 10px; background: #1b5e20; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        /* ESTILO DO PONTO DE LOCALIZAÇÃO (AGORA VISÍVEL) */
+        .user-loc { 
+            width: 15px !important; height: 15px !important; 
+            background: #007bff; border: 3px solid white; border-radius: 50%; 
+            box-shadow: 0 0 15px #007bff; animation: pulse-gps 1.5s infinite; 
         }
-        .btn-tech {
-            width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 10px;
-            background: #1b5e20; color: white; font-weight: bold; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.2s;
-        }
-        .btn-tech:active { transform: scale(0.96); }
-        .user-loc { width: 14px; height: 14px; background: #007bff; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 12px #007bff; animation: p 1.5s infinite; }
-        @keyframes p { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+        @keyframes pulse-gps { 0% { box-shadow: 0 0 0 0 rgba(0,123,255,0.7); } 70% { box-shadow: 0 0 0 15px rgba(0,123,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,123,255,0); } }
+        
         .rotulo-hd { color: black !important; font-weight: 900 !important; font-size: 16px !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; pointer-events: none; }
     </style>
     
@@ -45,7 +44,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_bc7b2e347449f00af9ebf84881f8e8ca {
+                #map_57911ce1bea25e402557bfdac8c79344 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -83,41 +82,28 @@
     
     
     <div id="painel">
-        <button id="btn-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        <button id="btn-toggle" onclick="toggleMenu()">☰</button>
         <div style="text-align:center; margin-bottom:12px;">
-            <b style="color:#1b5e20; font-size:16px;">SISTEMA TECH CLEALCO</b><br>
-            <span style="font-size:10px; color:#666;">Versão v15_2026</span>
+            <b style="color:#1b5e20; font-size:16px;">COLHEITA CLEALCO</b><br>
+            <span style="font-size:10px; color:#666;">Versão v16_GPS_OK</span>
         </div>
         <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda...">
         <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
-        <button class="btn-tech" onclick="irParaRota()"><i class="fas fa-route"></i> ROTA NO GOOGLE</button>
-        <button class="btn-tech" style="background:#444" onclick="minhaPosicao()"><i class="fas fa-location-crosshairs"></i> ONDE ESTOU?</button>
+        <button class="btn-tech" onclick="irParaRota()"><i class="fas fa-route"></i> ROTA GOOGLE</button>
+        <button class="btn-tech" style="background:#444" onclick="minhaPosicao()"><i class="fas fa-crosshairs"></i> ONDE ESTOU?</button>
         <div style="font-size: 11px; margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
             <label><input type="checkbox" id="chk_divisas" checked onclick="toggleDivisas()"> Divisas</label>
             <label><input type="checkbox" id="chk_satelite" checked onclick="toggleSatelite()"> Satélite</label>
             <label><input type="radio" name="tema" onclick="mudarTema(1)" checked> Tiros</label>
             <label><input type="radio" name="tema" onclick="mudarTema(2)"> Talhões</label>
         </div>
-        <button class="btn-tech" style="background:#ddd; color:#333; height:30px; font-size:10px;" onclick="location.reload(true)">FORÇAR ATUALIZAÇÃO</button>
+        <button class="btn-tech" style="background:#ddd; color:#333; height:30px; font-size:10px;" onclick="location.reload(true)">ATUALIZAR</button>
     </div>
     
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js').then(reg => {
-            reg.onupdatefound = () => {
-                const newWorker = reg.installing;
-                newWorker.onstatechange = () => {
-                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        if (confirm("Nova base de dados Clealco detectada! Atualizar agora?")) window.location.reload();
-                    }
-                };
-            };
-        });
-    }
-
     var mapObj, userMarker, farmCenter = null, tilesCarregados = new Set(), filtroFazenda = "", temaAtivo = 1, camadaDivisas = null, camadasLinhas = [], marcadoresLabels = [];
 
     function toggleMenu() { document.getElementById('painel').classList.toggle('minimizado'); }
@@ -125,7 +111,10 @@
     $(document).ready(function() {
         setTimeout(function() {
             mapObj = window[document.querySelector('.folium-map').id];
+            // Camada VIP para o GPS ficar no topo de tudo
+            mapObj.createPane('pane_gps').style.zIndex = 1000;
             mapObj.createPane('pane_divisas').style.zIndex = 650;
+            
             $.getJSON("labels.json", data => data.forEach(l => {
                 marcadoresLabels.push(L.marker([l.lat, l.lng], { icon: L.divIcon({ className: 'rotulo-hd', html: l.talhao }), alt: l.fazenda.toString().toUpperCase() }));
             }));
@@ -158,8 +147,10 @@
         camadasLinhas.forEach(c => c.eachLayer(l => {
             let p = l.feature.properties;
             let m = s && p['FAZENDA'].toString().trim().toUpperCase() === filtroFazenda;
+            // LINHAS: Sem rótulo, apenas estilo e popup de metragem
             l.setStyle({ opacity: m ? 0.8 : 0, weight: m ? 1 : 0, color: (temaAtivo == 1 ? getCorTiro(p['CLASSE']) : p.color_talhao), interactive: m });
         }));
+        // RÓTULOS: Apenas os centróides dos talhões (vêm do labels.json)
         marcadoresLabels.forEach(m => { if(s && m.options.alt === filtroFazenda) m.addTo(mapObj); else mapObj.removeLayer(m); });
     }
 
@@ -172,7 +163,10 @@
             if (vB.intersects(L.latLngBounds(t.bounds)) && !tilesCarregados.has(t.arquivo)) {
                 tilesCarregados.add(t.arquivo);
                 $.getJSON("tiles/" + t.arquivo, geo => {
-                    camadasLinhas.push(L.geoJson(geo, { onEachFeature: (f,l) => l.bindPopup("Comp: "+f.properties.COMP_M.toFixed(1)+"m") }).addTo(mapObj));
+                    // Aqui as linhas ganham apenas o popup, zero rótulos estáticos
+                    camadasLinhas.push(L.geoJson(geo, { 
+                        onEachFeature: (f,l) => l.bindPopup("Comp: "+f.properties.COMP_M.toFixed(1)+"m") 
+                    }).addTo(mapObj));
                     refreshVisual();
                 });
             }
@@ -180,11 +174,16 @@
     }
 
     function minhaPosicao() {
-        mapObj.locate({setView: true, maxZoom: 16});
+        mapObj.locate({setView: true, maxZoom: 18, enableHighAccuracy: true});
         mapObj.on('locationfound', e => {
             if (userMarker) mapObj.removeLayer(userMarker);
-            userMarker = L.marker(e.latlng, { icon: L.divIcon({ className: 'user-loc' }) }).addTo(mapObj);
+            // Criando o ponto azul no pane_gps para garantir visibilidade
+            userMarker = L.marker(e.latlng, { 
+                icon: L.divIcon({ className: 'user-loc', iconSize: [15, 15] }),
+                pane: 'pane_gps' 
+            }).addTo(mapObj);
         });
+        mapObj.on('locationerror', e => alert("GPS indisponível: " + e.message));
     }
 
     function irParaRota() {
@@ -199,14 +198,14 @@
     </script>
     
     
-            <div class="folium-map" id="map_bc7b2e347449f00af9ebf84881f8e8ca" ></div>
+            <div class="folium-map" id="map_57911ce1bea25e402557bfdac8c79344" ></div>
         
 </body>
 <script>
     
     
-            var map_bc7b2e347449f00af9ebf84881f8e8ca = L.map(
-                "map_bc7b2e347449f00af9ebf84881f8e8ca",
+            var map_57911ce1bea25e402557bfdac8c79344 = L.map(
+                "map_57911ce1bea25e402557bfdac8c79344",
                 {
                     center: [-21.57265, -50.37255],
                     crs: L.CRS.EPSG3857,
@@ -223,7 +222,7 @@
 
         
     
-            var tile_layer_9152407dbb154646cd3e57f4a8cfa9df = L.tileLayer(
+            var tile_layer_f3a2af54666da547048bafedd2a3a470 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -240,10 +239,10 @@
             );
         
     
-            tile_layer_9152407dbb154646cd3e57f4a8cfa9df.addTo(map_bc7b2e347449f00af9ebf84881f8e8ca);
+            tile_layer_f3a2af54666da547048bafedd2a3a470.addTo(map_57911ce1bea25e402557bfdac8c79344);
         
     
-            var tile_layer_6496f40810f8f8a141fb02de89345b02 = L.tileLayer(
+            var tile_layer_80b955ebe321726ffd4c5c70ea576f38 = L.tileLayer(
                 "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
                 {
   "minZoom": 0,
@@ -260,7 +259,7 @@
             );
         
     
-            tile_layer_6496f40810f8f8a141fb02de89345b02.addTo(map_bc7b2e347449f00af9ebf84881f8e8ca);
+            tile_layer_80b955ebe321726ffd4c5c70ea576f38.addTo(map_57911ce1bea25e402557bfdac8c79344);
         
 </script>
 </html>
