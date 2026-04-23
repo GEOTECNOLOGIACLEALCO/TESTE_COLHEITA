@@ -5,14 +5,16 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     
     <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        #painel { position: fixed; top: 15px; left: 50px; z-index: 9999; background: white; padding: 15px; border: 2px solid #222; border-radius: 10px; font-family: sans-serif; width: 240px; box-shadow: 3px 3px 10px rgba(0,0,0,0.3); transition: 0.3s; }
-        #painel.minimizado { transform: translateX(-250px); }
+        #painel { position: fixed; top: 15px; left: 15px; z-index: 9999; background: white; padding: 15px; border: 2px solid #222; border-radius: 10px; font-family: sans-serif; width: 250px; box-shadow: 3px 3px 10px rgba(0,0,0,0.3); transition: 0.3s; }
+        #painel.minimizado { transform: translateX(-260px); }
         #btn-toggle { position: absolute; right: -45px; top: 0; background: #2e7d32; color: white; border: 2px solid #222; border-left: none; padding: 10px; cursor: pointer; border-radius: 0 5px 5px 0; font-weight: bold; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; }
         .rotulo-hd { color: black !important; font-weight: 900 !important; font-size: 16px !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; white-space: nowrap; pointer-events: none; background: none !important; border: none !important; }
-        #legenda-container { margin-top: 10px; font-size: 11px; }
         .item-leg { display: flex; align-items: center; margin-bottom: 2px; }
         .cor-leg { width: 14px; height: 14px; margin-right: 5px; border: 1px solid #000; }
+        .user-loc-icon { width: 12px; height: 12px; background: #007bff; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 10px #007bff; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
     </style>
     
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
@@ -29,7 +31,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_21408b3be9ce314b2db4c627916f0b55 {
+                #map_4d155f81c9bb4652802ab54a66c92d29 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -72,13 +74,17 @@
         <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Buscar Fazenda..." style="width: 90%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;">
         <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
         
-        <div style="font-size: 12px; margin-top: 10px;">
+        <button onclick="minhaPosicao()" style="width:100%; margin-top:10px; padding:10px; background:#2e7d32; color:white; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">
+            <i class="fas fa-location-arrow"></i> MINHA LOCALIZAÇÃO
+        </button>
+
+        <div style="font-size: 12px; margin-top: 15px;">
             <b>🎨 TEMAS:</b><br>
             <label><input type="radio" name="tema" onclick="mudarTema(1)" checked> Classif. Tiro Médio</label><br>
             <label><input type="radio" name="tema" onclick="mudarTema(2)"> Classif. Talhão</label>
         </div>
         
-        <div id="legenda-container">
+        <div id="legenda-container" style="margin-top:10px; font-size:11px;">
             <div class="item-leg"><div class="cor-leg" style="background:#ff0000"></div> 0 - 150 (Curto)</div>
             <div class="item-leg"><div class="cor-leg" style="background:#ffff00"></div> 151 - 300 (Médio)</div>
             <div class="item-leg"><div class="cor-leg" style="background:#00ff00"></div> 301 - 450 (Longo)</div>
@@ -90,17 +96,17 @@
             <label><input type="checkbox" id="chk_divisas" checked onclick="toggleDivisas()"> Ver Divisas</label><br>
             <label><input type="checkbox" id="chk_satelite" checked onclick="toggleSatelite()"> Satélite</label>
         </div>
-        <button onclick="location.reload()" style="width: 100%; margin-top: 10px; padding: 8px; cursor: pointer; background: #f0f0f0; border: 1px solid #999; border-radius: 5px;">🔄 Atualizar / Sync</button>
+        <button onclick="location.reload()" style="width: 100%; margin-top: 10px; padding: 8px; cursor: pointer; background: #f0f0f0; border: 1px solid #999; border-radius: 5px;">🔄 Sync / Reset</button>
     </div>
     
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js').then(() => console.log("SW Carregado!"));
+        navigator.serviceWorker.register('./sw.js').then(() => console.log("SW OK"));
     }
 
-    var mapObj, tilesCarregados = new Set(), filtroFazenda = "", temaAtivo = 1, camadaDivisas = null, camadasLinhas = [], marcadoresLabels = [];
+    var mapObj, userMarker, tilesCarregados = new Set(), filtroFazenda = "", temaAtivo = 1, camadaDivisas = null, camadasLinhas = [], marcadoresLabels = [];
 
     function toggleMenu() { document.getElementById('painel').classList.toggle('minimizado'); }
 
@@ -108,6 +114,7 @@
         setTimeout(function() {
             mapObj = window[document.querySelector('.folium-map').id];
             mapObj.createPane('pane_divisas').style.zIndex = 650;
+            mapObj.createPane('pane_gps').style.zIndex = 1000;
             
             $.getJSON("labels.json", function(data) {
                 data.forEach(function(l) {
@@ -117,7 +124,6 @@
                     });
                     marcadoresLabels.push(m);
                 });
-                console.log("Labels carregados.");
             });
 
             $.getJSON("manifesto.json", function(data) {
@@ -127,25 +133,27 @@
         }, 800);
     });
 
+    function minhaPosicao() {
+        mapObj.locate({setView: true, maxZoom: 18, enableHighAccuracy: true});
+        mapObj.on('locationfound', function(e) {
+            if (userMarker) mapObj.removeLayer(userMarker);
+            userMarker = L.marker(e.latlng, { icon: L.divIcon({ className: 'user-loc-icon' }), pane: 'pane_gps' }).addTo(mapObj);
+        });
+    }
+
     function atualizarMapa() { 
         var inputVal = document.getElementById('input_fazenda').value.trim().toUpperCase();
         if (!inputVal || inputVal === filtroFazenda) return;
         filtroFazenda = inputVal;
 
         if (camadaDivisas) { mapObj.removeLayer(camadaDivisas); }
-
         var nomeArquivo = "divisas_" + filtroFazenda.replace(/ /g, "_") + ".json";
         $.getJSON("divisas_split/" + nomeArquivo, function(data) {
             camadaDivisas = L.geoJson(data, {
                 pane: 'pane_divisas',
                 style: { color: "black", weight: 2, fillOpacity: 0.1 },
-                onEachFeature: function(f, l) {
-                    var h = "<b>INFO TALHÃO</b><hr>";
-                    for (var k in f.properties) h += "<b>"+k+":</b> "+f.properties[k]+"<br>";
-                    l.bindPopup(h);
-                }
+                onEachFeature: (f, l) => l.bindPopup("<b>TALHÃO:</b> " + f.properties.TALHAO)
             }).addTo(mapObj);
-            console.log("Divisas carregadas: " + nomeArquivo);
         });
 
         refreshVisual(); 
@@ -167,14 +175,14 @@
                 });
             });
         });
+        // Rótulos CONDICIONAIS: Só aparecem se temaAtivo for 2 (Talhões)
         marcadoresLabels.forEach(function(m) {
-            if (show && m.options.alt === filtroFazenda) m.addTo(mapObj); else mapObj.removeLayer(m);
+            if (show && temaAtivo == 2 && m.options.alt === filtroFazenda) m.addTo(mapObj); 
+            else mapObj.removeLayer(m);
         });
     }
 
-    function getCorTiro(v) { 
-        return v <= 150 ? '#ff0000' : v <= 300 ? '#ffff00' : v <= 450 ? '#00ff00' : '#00fffa'; 
-    }
+    function getCorTiro(v) { return v <= 150 ? '#ff0000' : v <= 300 ? '#ffff00' : v <= 450 ? '#00ff00' : '#00fffa'; }
     
     function scanTiles(manifesto) { 
         if (!filtroFazenda) return;
@@ -184,7 +192,7 @@
                 tilesCarregados.add(t.arquivo);
                 $.getJSON("tiles/" + t.arquivo, function(geo) {
                     var layer = L.geoJson(geo, { 
-                        onEachFeature: (f, l) => l.bindPopup("<b>Comprimento:</b> " + f.properties.COMP_M.toFixed(1) + "m") 
+                        onEachFeature: (f, l) => l.bindPopup("<b>Comp:</b> " + f.properties.COMP_M.toFixed(1) + "m") 
                     }).addTo(mapObj);
                     camadasLinhas.push(layer);
                     refreshVisual();
@@ -199,32 +207,19 @@
         refreshVisual(); 
     }
 
-    function toggleDivisas() { 
-        if (camadaDivisas) { 
-            if (document.getElementById('chk_divisas').checked) mapObj.addLayer(camadaDivisas); 
-            else mapObj.removeLayer(camadaDivisas); 
-        } 
-    }
-
-    function toggleSatelite() { 
-        mapObj.eachLayer(function(l) { 
-            if (l._url && (l._url.includes('google') || l._url.includes('mt1'))) { 
-                if (document.getElementById('chk_satelite').checked) mapObj.addLayer(l); 
-                else mapObj.removeLayer(l); 
-            } 
-        }); 
-    }
+    function toggleDivisas() { if (camadaDivisas) { if (document.getElementById('chk_divisas').checked) mapObj.addLayer(camadaDivisas); else mapObj.removeLayer(camadaDivisas); } }
+    function toggleSatelite() { mapObj.eachLayer(l => { if (l._url && l._url.includes('google')) { if (document.getElementById('chk_satelite').checked) mapObj.addLayer(l); else mapObj.removeLayer(l); } }); }
     </script>
     
     
-            <div class="folium-map" id="map_21408b3be9ce314b2db4c627916f0b55" ></div>
+            <div class="folium-map" id="map_4d155f81c9bb4652802ab54a66c92d29" ></div>
         
 </body>
 <script>
     
     
-            var map_21408b3be9ce314b2db4c627916f0b55 = L.map(
-                "map_21408b3be9ce314b2db4c627916f0b55",
+            var map_4d155f81c9bb4652802ab54a66c92d29 = L.map(
+                "map_4d155f81c9bb4652802ab54a66c92d29",
                 {
                     center: [-21.57265, -50.37255],
                     crs: L.CRS.EPSG3857,
@@ -241,7 +236,7 @@
 
         
     
-            var tile_layer_59d21d08e3774f1d09a0d3ff39be3cdb = L.tileLayer(
+            var tile_layer_77a0320f732b44c76ac51c22d194ab67 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -258,10 +253,10 @@
             );
         
     
-            tile_layer_59d21d08e3774f1d09a0d3ff39be3cdb.addTo(map_21408b3be9ce314b2db4c627916f0b55);
+            tile_layer_77a0320f732b44c76ac51c22d194ab67.addTo(map_4d155f81c9bb4652802ab54a66c92d29);
         
     
-            var tile_layer_f6680cbe6fede887095db88de066e728 = L.tileLayer(
+            var tile_layer_d798d64882b54c784bd478ca51dc5d78 = L.tileLayer(
                 "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
                 {
   "minZoom": 0,
@@ -278,7 +273,7 @@
             );
         
     
-            tile_layer_f6680cbe6fede887095db88de066e728.addTo(map_21408b3be9ce314b2db4c627916f0b55);
+            tile_layer_d798d64882b54c784bd478ca51dc5d78.addTo(map_4d155f81c9bb4652802ab54a66c92d29);
         
 </script>
 </html>
