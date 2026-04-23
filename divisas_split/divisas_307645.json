@@ -1,9 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "divisas_307645",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERANCA", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 13.781031604873862, "FAZENDA": "307645" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.286, -21.60362 ], [ -50.28149, -21.60653 ], [ -50.28174, -21.60725 ], [ -50.28036, -21.60814 ], [ -50.28097, -21.60897 ], [ -50.28714, -21.60499 ], [ -50.2869, -21.60464 ], [ -50.28673, -21.60457 ], [ -50.28669, -21.60438 ], [ -50.28612, -21.60367 ], [ -50.286, -21.60362 ] ] ] } },
-{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERANCA", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 7.3976567991121316, "FAZENDA": "307645" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25117, -21.53747 ], [ -50.24843, -21.54294 ], [ -50.2488, -21.54343 ], [ -50.24913, -21.54371 ], [ -50.25217, -21.53777 ], [ -50.25188, -21.53775 ], [ -50.25117, -21.53747 ] ] ] } }
-]
-}

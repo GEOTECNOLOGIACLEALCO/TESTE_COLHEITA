@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "divisas_306890",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO ANTINHA", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 7.4172108159088541, "FAZENDA": "306890" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.0497, -21.61375 ], [ -50.05125, -21.61305 ], [ -50.04917, -21.61065 ], [ -50.04893, -21.61067 ], [ -50.04828, -21.60996 ], [ -50.04711, -21.61046 ], [ -50.0497, -21.61375 ] ] ] } }
-]
-}

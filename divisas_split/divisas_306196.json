@@ -1,9 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "divisas_306196",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BELA VISTA I", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 12.26122227498889, "FAZENDA": "306196" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25095, -21.46802 ], [ -50.25153, -21.46948 ], [ -50.25654, -21.46363 ], [ -50.25579, -21.46238 ], [ -50.2557, -21.46241 ], [ -50.25095, -21.46802 ] ] ] } },
-{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BELA VISTA I", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 8.1249446629196402, "FAZENDA": "306196" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25152, -21.46949 ], [ -50.25095, -21.46803 ], [ -50.24739, -21.47224 ], [ -50.24837, -21.47317 ], [ -50.25152, -21.46949 ] ] ] } }
-]
-}

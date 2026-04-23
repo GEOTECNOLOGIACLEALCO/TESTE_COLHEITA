@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "divisas_307596",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO SAO JOSE", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 14.47234838975384, "FAZENDA": "307596" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.3041, -21.49341 ], [ -50.30405, -21.49333 ], [ -50.30348, -21.49333 ], [ -50.30271, -21.4927 ], [ -50.30239, -21.49267 ], [ -50.29811, -21.49655 ], [ -50.29797, -21.49699 ], [ -50.29787, -21.49795 ], [ -50.29874, -21.49847 ], [ -50.29884, -21.49843 ], [ -50.3041, -21.49341 ] ] ] } }
-]
-}

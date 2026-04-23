@@ -1,9 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "divisas_307734",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "NOME_FAZ": "FAZENDA 3M", "ZONA": 1, "TALHAO": 2, "AREA_TOTAL": 21.9669541867489, "FAZENDA": "307734" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.42294, -21.38806 ], [ -50.42256, -21.39286 ], [ -50.42678, -21.39194 ], [ -50.42694, -21.38728 ], [ -50.42494, -21.38767 ], [ -50.42495, -21.38773 ], [ -50.42294, -21.38806 ] ] ] } },
-{ "type": "Feature", "properties": { "NOME_FAZ": "FAZENDA 3M", "ZONA": 1, "TALHAO": 1, "AREA_TOTAL": 25.23885379330175, "FAZENDA": "307734" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.42347, -21.38239 ], [ -50.42294, -21.38803 ], [ -50.42408, -21.3878 ], [ -50.42407, -21.38774 ], [ -50.42694, -21.38724 ], [ -50.42716, -21.38113 ], [ -50.42596, -21.38182 ], [ -50.42433, -21.38202 ], [ -50.42347, -21.38239 ] ] ] } }
-]
-}

@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "divisas_303274",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO DOIS IRMAOS II", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 17.041102522543177, "FAZENDA": "303274" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.29518, -21.67226 ], [ -50.29332, -21.67051 ], [ -50.2939, -21.66999 ], [ -50.28798, -21.66434 ], [ -50.2869, -21.66553 ], [ -50.28688, -21.66562 ], [ -50.28697, -21.66573 ], [ -50.29476, -21.67275 ], [ -50.29504, -21.6728 ], [ -50.29516, -21.67273 ], [ -50.29518, -21.67226 ] ] ] } }
-]
-}
