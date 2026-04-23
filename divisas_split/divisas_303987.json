@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_303987",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO COLIBRI", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 14.300498868518231, "FAZENDA": "303987" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.54807, -21.63106 ], [ -50.54953, -21.63471 ], [ -50.55202, -21.63381 ], [ -50.55013, -21.62914 ], [ -50.54973, -21.62912 ], [ -50.54928, -21.62936 ], [ -50.54871, -21.63023 ], [ -50.54815, -21.6308 ], [ -50.54807, -21.63106 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO COLIBRI", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 11.143576101210527, "FAZENDA": "303987" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.54955, -21.63476 ], [ -50.5509, -21.63812 ], [ -50.55332, -21.6373 ], [ -50.55339, -21.63717 ], [ -50.55204, -21.63385 ], [ -50.54955, -21.63476 ] ] ] } }
+]
+}

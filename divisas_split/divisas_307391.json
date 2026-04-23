@@ -1,0 +1,12 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_307391",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "ESTANCIA CANTINHO DA LILIAN", "ZONA": 999, "TALHAO": 5, "AREA_TOTAL": 10.676671816316219, "FAZENDA": "307391" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.40101, -21.88685 ], [ -50.39657, -21.88982 ], [ -50.39754, -21.89112 ], [ -50.40215, -21.88828 ], [ -50.40101, -21.88685 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "ESTANCIA CANTINHO DA LILIAN", "ZONA": 999, "TALHAO": 4, "AREA_TOTAL": 21.312786036991124, "FAZENDA": "307391" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.39909, -21.89118 ], [ -50.39879, -21.89211 ], [ -50.39865, -21.89473 ], [ -50.4044, -21.89113 ], [ -50.40217, -21.88831 ], [ -50.39982, -21.88975 ], [ -50.39909, -21.89118 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "ESTANCIA CANTINHO DA LILIAN", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 15.6982562263495, "FAZENDA": "307391" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.39176, -21.89469 ], [ -50.38848, -21.89672 ], [ -50.39, -21.89777 ], [ -50.39154, -21.89808 ], [ -50.39303, -21.89815 ], [ -50.39529, -21.8968 ], [ -50.39483, -21.89648 ], [ -50.39422, -21.89564 ], [ -50.39296, -21.89544 ], [ -50.39176, -21.89469 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "ESTANCIA CANTINHO DA LILIAN", "ZONA": 999, "TALHAO": 3, "AREA_TOTAL": 12.661567327564402, "FAZENDA": "307391" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.39975, -21.88979 ], [ -50.39394, -21.89337 ], [ -50.39858, -21.89478 ], [ -50.39879, -21.89185 ], [ -50.39905, -21.89117 ], [ -50.39975, -21.88979 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "ESTANCIA CANTINHO DA LILIAN", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 12.469940812110622, "FAZENDA": "307391" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.39179, -21.89467 ], [ -50.39301, -21.89542 ], [ -50.39424, -21.89561 ], [ -50.39486, -21.89646 ], [ -50.39533, -21.89678 ], [ -50.39853, -21.89481 ], [ -50.3939, -21.89339 ], [ -50.39179, -21.89467 ] ] ] } }
+]
+}

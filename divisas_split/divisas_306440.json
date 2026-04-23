@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_306440",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO PARAISO", "ZONA": 1, "TALHAO": 3, "AREA_TOTAL": 8.6728816018066599, "FAZENDA": "306440" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.09273, -21.28163 ], [ -50.09397, -21.28316 ], [ -50.09542, -21.28221 ], [ -50.09647, -21.28194 ], [ -50.09665, -21.28012 ], [ -50.09258, -21.28082 ], [ -50.09273, -21.28163 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO PARAISO", "ZONA": 1, "TALHAO": 2, "AREA_TOTAL": 9.1802530280980292, "FAZENDA": "306440" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.09602, -21.27732 ], [ -50.09268, -21.28011 ], [ -50.0925, -21.28007 ], [ -50.09258, -21.28077 ], [ -50.09666, -21.28008 ], [ -50.09694, -21.27761 ], [ -50.09602, -21.27732 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO PARAISO", "ZONA": 1, "TALHAO": 4, "AREA_TOTAL": 0.917527918893006, "FAZENDA": "306440" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.09228, -21.2816 ], [ -50.09358, -21.28344 ], [ -50.09394, -21.28319 ], [ -50.09261, -21.28152 ], [ -50.09228, -21.2816 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO PARAISO", "ZONA": 1, "TALHAO": 1, "AREA_TOTAL": 8.0217476648381218, "FAZENDA": "306440" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.09698, -21.27763 ], [ -50.09652, -21.28194 ], [ -50.09859, -21.28219 ], [ -50.09855, -21.28185 ], [ -50.0984, -21.28153 ], [ -50.09833, -21.27849 ], [ -50.09843, -21.27808 ], [ -50.09698, -21.27763 ] ] ] } }
+]
+}

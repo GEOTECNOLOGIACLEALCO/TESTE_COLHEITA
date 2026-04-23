@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_307644",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "CHACARA SANTA MARIA", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 6.2513549829345676, "FAZENDA": "307644" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.27152, -21.6356 ], [ -50.26541, -21.64028 ], [ -50.26545, -21.64032 ], [ -50.26607, -21.64075 ], [ -50.27227, -21.63583 ], [ -50.27214, -21.63574 ], [ -50.27152, -21.6356 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "CHACARA SANTA MARIA", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 3.2708344113516041, "FAZENDA": "307644" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.2745, -21.63335 ], [ -50.27286, -21.6346 ], [ -50.27304, -21.6348 ], [ -50.27318, -21.63548 ], [ -50.27342, -21.63583 ], [ -50.27491, -21.63469 ], [ -50.27483, -21.6338 ], [ -50.2745, -21.63335 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "CHACARA SANTA MARIA", "ZONA": 999, "TALHAO": 3, "AREA_TOTAL": 4.3017215765154582, "FAZENDA": "307644" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.2723, -21.63588 ], [ -50.26825, -21.63903 ], [ -50.26861, -21.63954 ], [ -50.26876, -21.63953 ], [ -50.26933, -21.63911 ], [ -50.27244, -21.63667 ], [ -50.27275, -21.63634 ], [ -50.2723, -21.63588 ] ] ] } }
+]
+}

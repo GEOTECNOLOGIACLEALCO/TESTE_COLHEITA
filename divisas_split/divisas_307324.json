@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_307324",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "FAZENDA SAO JOSE E SANTA TEREZINHA", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 20.837193977534724, "FAZENDA": "307324" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.13382, -21.35405 ], [ -50.13301, -21.3578 ], [ -50.13513, -21.35895 ], [ -50.13669, -21.35888 ], [ -50.13748, -21.35913 ], [ -50.13779, -21.35914 ], [ -50.13867, -21.35886 ], [ -50.13964, -21.35816 ], [ -50.13408, -21.35407 ], [ -50.13382, -21.35405 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "FAZENDA SAO JOSE E SANTA TEREZINHA", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 10.956175061477907, "FAZENDA": "307324" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.12968, -21.35402 ], [ -50.1312, -21.35675 ], [ -50.13297, -21.35778 ], [ -50.13378, -21.35405 ], [ -50.12972, -21.35392 ], [ -50.12968, -21.35402 ] ] ] } }
+]
+}

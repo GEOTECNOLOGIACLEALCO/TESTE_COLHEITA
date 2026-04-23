@@ -1,0 +1,13 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_305692",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERAN�A", "ZONA": 999, "TALHAO": 6, "AREA_TOTAL": 2.6181081130914392, "FAZENDA": "305692" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25917, -21.45587 ], [ -50.25795, -21.45734 ], [ -50.25846, -21.45765 ], [ -50.26045, -21.45629 ], [ -50.25927, -21.45525 ], [ -50.25917, -21.45587 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERAN�A", "ZONA": 999, "TALHAO": 3, "AREA_TOTAL": 4.0366260049248659, "FAZENDA": "305692" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -50.25524, -21.45433 ], [ -50.25605, -21.45464 ], [ -50.25616, -21.45407 ], [ -50.25524, -21.45433 ] ] ], [ [ [ -50.25531, -21.45161 ], [ -50.25516, -21.45163 ], [ -50.2546, -21.45403 ], [ -50.25503, -21.45424 ], [ -50.25619, -21.45392 ], [ -50.2564, -21.45277 ], [ -50.25598, -21.45201 ], [ -50.25531, -21.45161 ] ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERAN�A", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 8.7688029858651468, "FAZENDA": "305692" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25793, -21.45737 ], [ -50.25518, -21.46069 ], [ -50.25604, -21.46208 ], [ -50.25939, -21.45827 ], [ -50.25793, -21.45737 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERAN�A", "ZONA": 999, "TALHAO": 5, "AREA_TOTAL": 3.2233307076440778, "FAZENDA": "305692" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25689, -21.44401 ], [ -50.25633, -21.4463 ], [ -50.25762, -21.44655 ], [ -50.25799, -21.4445 ], [ -50.25689, -21.44401 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERAN�A", "ZONA": 999, "TALHAO": 4, "AREA_TOTAL": 6.7705391272586599, "FAZENDA": "305692" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.25632, -21.44635 ], [ -50.25548, -21.4501 ], [ -50.2567, -21.45121 ], [ -50.25761, -21.44659 ], [ -50.25632, -21.44635 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO BOA ESPERAN�A", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 2.0288204920460471, "FAZENDA": "305692" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.26045, -21.45629 ], [ -50.25846, -21.45765 ], [ -50.25941, -21.45824 ], [ -50.26083, -21.45663 ], [ -50.26045, -21.45629 ] ] ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_305186",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "FAZENDA 3 IRMAOS", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 11.146938936610054, "FAZENDA": "305186" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.09963, -21.67292 ], [ -50.09904, -21.67122 ], [ -50.09347, -21.67203 ], [ -50.09477, -21.67363 ], [ -50.09532, -21.6736 ], [ -50.09963, -21.67292 ] ] ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_307826",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO EBENEZER", "ZONA": 1, "TALHAO": 1, "AREA_TOTAL": 12.007364483345976, "FAZENDA": "307826" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.10914, -21.36098 ], [ -50.10912, -21.36087 ], [ -50.10158, -21.35905 ], [ -50.10091, -21.35975 ], [ -50.10168, -21.35998 ], [ -50.10136, -21.3605 ], [ -50.10152, -21.36056 ], [ -50.10804, -21.36199 ], [ -50.10914, -21.36098 ] ] ] } }
+]
+}

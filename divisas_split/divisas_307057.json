@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_307057",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO SAO PEDRO", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 14.724577016177774, "FAZENDA": "307057" }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ -50.46079, -21.40879 ], [ -50.45213, -21.40844 ], [ -50.45081, -21.40968 ], [ -50.46034, -21.41005 ], [ -50.46079, -21.40879 ] ] ], [ [ [ -50.45192, -21.40843 ], [ -50.45053, -21.40838 ], [ -50.45015, -21.40965 ], [ -50.4506, -21.40967 ], [ -50.45192, -21.40843 ] ] ] ] } }
+]
+}

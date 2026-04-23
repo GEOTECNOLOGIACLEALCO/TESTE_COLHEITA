@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_303413",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO RANCHO DAS PEDRAS", "ZONA": 999, "TALHAO": 2, "AREA_TOTAL": 4.6756216341041039, "FAZENDA": "303413" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.29898, -21.45699 ], [ -50.29666, -21.45866 ], [ -50.29752, -21.45982 ], [ -50.29979, -21.45809 ], [ -50.29898, -21.45699 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO RANCHO DAS PEDRAS", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 14.035059332697029, "FAZENDA": "303413" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.29454, -21.46209 ], [ -50.29445, -21.46203 ], [ -50.29449, -21.46194 ], [ -50.29466, -21.462 ], [ -50.29749, -21.45985 ], [ -50.29662, -21.45868 ], [ -50.28978, -21.46366 ], [ -50.29069, -21.46407 ], [ -50.29101, -21.46413 ], [ -50.29149, -21.46441 ], [ -50.29454, -21.46209 ] ] ] } }
+]
+}

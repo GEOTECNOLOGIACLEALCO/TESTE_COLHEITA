@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "divisas_307640",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO NOSSA SENHORA APARECIDA", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 4.198942975319258, "FAZENDA": "307640" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.22823, -21.516 ], [ -50.22722, -21.51602 ], [ -50.22696, -21.51917 ], [ -50.22702, -21.51942 ], [ -50.22793, -21.51942 ], [ -50.22803, -21.51936 ], [ -50.22823, -21.516 ] ] ] } },
+{ "type": "Feature", "properties": { "NOME_FAZ": "SITIO NOSSA SENHORA APARECIDA", "ZONA": 999, "TALHAO": 1, "AREA_TOTAL": 8.0030416389024985, "FAZENDA": "307640" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -50.22826, -21.51582 ], [ -50.22879, -21.5094 ], [ -50.22869, -21.50925 ], [ -50.22787, -21.50919 ], [ -50.22779, -21.50927 ], [ -50.22776, -21.50958 ], [ -50.22723, -21.5159 ], [ -50.22797, -21.51597 ], [ -50.2282, -21.51592 ], [ -50.22826, -21.51582 ] ] ] } }
+]
+}
