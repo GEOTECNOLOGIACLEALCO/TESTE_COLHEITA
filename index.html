@@ -15,34 +15,24 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         #painel.minimizado { transform: translateX(-285px); }
-        #btn-toggle { 
-            position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white;
-            border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; font-size: 20px;
-        }
+        #btn-toggle { position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white; border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; }
         .btn-tech { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 10px; background: #1b5e20; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         
-        /* GPS ULTRA DESTACADO */
-        .user-loc-container {
-            display: flex; align-items: center; justify-content: center;
-        }
-        .user-loc-dot {
-            width: 18px; height: 18px; background: #007bff; border: 3px solid white;
-            border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 2;
-        }
-        .user-loc-pulse {
-            position: absolute; width: 40px; height: 40px; background: rgba(0, 123, 255, 0.4);
-            border-radius: 50%; animation: pulse-gps 2s infinite; z-index: 1;
-        }
-        @keyframes pulse-gps {
-            0% { transform: scale(0.5); opacity: 1; }
-            100% { transform: scale(2.5); opacity: 0; }
-        }
+        /* GPS ULTRA */
+        .user-loc-container { display: flex; align-items: center; justify-content: center; }
+        .user-loc-dot { width: 18px; height: 18px; background: #007bff; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 2; }
+        .user-loc-pulse { position: absolute; width: 40px; height: 40px; background: rgba(0, 123, 255, 0.4); border-radius: 50%; animation: pulse-gps 2s infinite; z-index: 1; }
+        @keyframes pulse-gps { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
         
         .rotulo-hd { color: black !important; font-weight: 900 !important; font-size: 15px !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; pointer-events: none; }
         #legenda-tiros { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 11px; }
         .cor-box { width: 12px; height: 12px; display: inline-block; margin-right: 5px; border: 1px solid #000; }
-        .popup-table { font-size: 12px; border-collapse: collapse; width: 100%; }
-        .popup-table td { padding: 4px; border-bottom: 1px solid #eee; }
+        .popup-table { font-size: 11px; border-collapse: collapse; width: 100%; }
+        .popup-table td { padding: 3px; border-bottom: 1px solid #eee; }
+        
+        /* BOTÃO DE INSTALAÇÃO */
+        #btn-install { display: none; background: #ff9800; margin-bottom: 15px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
     </style>
     
     
@@ -60,7 +50,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_9c122eac7926c4733e20ff61c24962ae {
+                #map_b9194700cd569fe3427cf77656b91c69 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -99,12 +89,18 @@
     
     <div id="painel">
         <button id="btn-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
-        <div style="text-align:center;"><b style="color:#1b5e20; font-size:16px;">COLHEITA CLEALCO</b></div>
+        <div style="text-align:center;"><b style="color:#1b5e20; font-size:16px;">COLHEITA CLEALCO/b></div>
         <hr style="margin: 10px 0;">
-        <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda...">
+        
+        <button id="btn-install" class="btn-tech" onclick="installPWA()">
+            <i class="fas fa-cloud-download-alt"></i> BAIXAR APP OFFLINE
+        </button>
+
+        <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
         <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
-        <button class="btn-tech" onclick="minhaPosicao()" style="background:#007bff"><i class="fas fa-location-crosshairs"></i> MINHA POSIÇÃO</button>
+        <button class="btn-tech" onclick="minhaPosicao()" style="background:#007bff"><i class="fas fa-location-crosshairs"></i> ONDE ESTOU?</button>
         <button class="btn-tech" style="background:#444" onclick="irParaRota()"><i class="fas fa-route"></i> ROTA GOOGLE</button>
+        
         <div style="font-size: 11px; margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
             <label><input type="radio" name="tema" onclick="mudarTema(1)" checked> Tiros</label>
             <label><input type="radio" name="tema" onclick="mudarTema(2)"> Talhões</label>
@@ -116,14 +112,48 @@
             <span class="cor-box" style="background:#00ff00"></span> 301-450m (Longo)<br>
             <span class="cor-box" style="background:#00fffa"></span> >450m (Extra)
         </div>
-        <button class="btn-tech" style="background:#eee; color:#333; height:30px; font-size:10px; margin-top:15px;" onclick="location.reload(true)">🔄 SYNC / RESET</button>
-        <div style="text-align:center; font-size:9px; color:#666; margin-top:8px; font-style:italic;">📅 Atualizado em: 24/04/2026 09:52</div>
+        <button class="btn-tech" style="background:#eee; color:#333; height:30px; font-size:10px; margin-top:15px;" onclick="sincronizarManual()">🔄 ATUALIZAR MAPA</button>
+        <div style="text-align:center; font-size:9px; color:#666; margin-top:8px; font-style:italic;">📅 Versão: 24/04/2026 10:06</div>
     </div>
     
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     
+    let deferredPrompt;
+    // REGISTRO E DETECTOR DE ATUALIZAÇÃO
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').then(reg => {
+            reg.onupdatefound = () => {
+                const newWorker = reg.installing;
+                newWorker.onstatechange = () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        if (confirm("Geotecnologia enviou uma nova versão do mapa! Atualizar agora?")) {
+                            window.location.reload();
+                        }
+                    }
+                };
+            };
+        });
+    }
+
+    // CAPTURA O EVENTO DE INSTALAÇÃO (DOWNLOAD)
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('btn-install').style.display = 'flex';
+    });
+
+    async function installPWA() {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            document.getElementById('btn-install').style.display = 'none';
+        }
+        deferredPrompt = null;
+    }
+
     var mapObj, userMarker, farmCenter = null, tilesCarregados = new Set(), filtroFazenda = "", temaAtivo = 1, camadaDivisas = null, camadasLinhas = [], marcadoresLabels = [];
 
     function toggleMenu() { 
@@ -163,7 +193,7 @@
             camadaDivisas = L.geoJson(data, { 
                 pane: 'pane_divisas', style: { color: "black", weight: 3, fillOpacity: 0.1 },
                 onEachFeature: (f,l) => {
-                    let h = "<b>DETALHES DO TALHÃO</b><hr><table class='popup-table'>";
+                    let h = "<b>DADOS DO SHAPEFILE</b><hr><table class='popup-table'>";
                     for (var key in f.properties) { h += "<tr><td><b>" + key + ":</b></td><td>" + f.properties[key] + "</td></tr>"; }
                     h += "</table>";
                     l.bindPopup(h);
@@ -209,13 +239,19 @@
         mapObj.locate({setView: true, maxZoom: 18, enableHighAccuracy: true});
         mapObj.on('locationfound', e => {
             if (userMarker) mapObj.removeLayer(userMarker);
-            // CRIANDO O MARCADOR COM PULSO DUPLO
             var iconHtml = '<div class="user-loc-container"><div class="user-loc-pulse"></div><div class="user-loc-dot"></div></div>';
             userMarker = L.marker(e.latlng, { 
                 icon: L.divIcon({ className: '', html: iconHtml, iconSize: [40, 40], iconAnchor: [20, 20] }), 
                 pane: 'pane_gps' 
             }).addTo(mapObj);
         });
+    }
+
+    function sincronizarManual() {
+        if (confirm("Isso vai limpar o mapa antigo e baixar o novo. Continuar?")) {
+            caches.keys().then(names => { for (let name of names) caches.delete(name); });
+            window.location.reload(true);
+        }
     }
 
     function irParaRota() {
@@ -228,14 +264,14 @@
     </script>
     
     
-            <div class="folium-map" id="map_9c122eac7926c4733e20ff61c24962ae" ></div>
+            <div class="folium-map" id="map_b9194700cd569fe3427cf77656b91c69" ></div>
         
 </body>
 <script>
     
     
-            var map_9c122eac7926c4733e20ff61c24962ae = L.map(
-                "map_9c122eac7926c4733e20ff61c24962ae",
+            var map_b9194700cd569fe3427cf77656b91c69 = L.map(
+                "map_b9194700cd569fe3427cf77656b91c69",
                 {
                     center: [-21.57265, -50.37255],
                     crs: L.CRS.EPSG3857,
@@ -252,7 +288,7 @@
 
         
     
-            var tile_layer_40179057ffb6e66c7888de3bfd4a3176 = L.tileLayer(
+            var tile_layer_88039461f7da5d701407e3138bf89529 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -269,10 +305,10 @@
             );
         
     
-            tile_layer_40179057ffb6e66c7888de3bfd4a3176.addTo(map_9c122eac7926c4733e20ff61c24962ae);
+            tile_layer_88039461f7da5d701407e3138bf89529.addTo(map_b9194700cd569fe3427cf77656b91c69);
         
     
-            var tile_layer_7c8555a52e747af785c5dfc647b9b1f2 = L.tileLayer(
+            var tile_layer_e2ef48c35c65b6e254f5fd5f97d6c0b2 = L.tileLayer(
                 "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
                 {
   "minZoom": 0,
@@ -289,7 +325,7 @@
             );
         
     
-            tile_layer_7c8555a52e747af785c5dfc647b9b1f2.addTo(map_9c122eac7926c4733e20ff61c24962ae);
+            tile_layer_e2ef48c35c65b6e254f5fd5f97d6c0b2.addTo(map_b9194700cd569fe3427cf77656b91c69);
         
 </script>
 </html>
