@@ -12,6 +12,13 @@
             background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
             padding: 15px; border-radius: 20px; font-family: sans-serif; 
             width: 270px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); border: 2px solid #1b5e20;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #painel.minimizado { transform: translateX(-285px); }
+        #btn-toggle { 
+            position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white;
+            border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; font-size: 20px;
+            box-shadow: 5px 0 10px rgba(0,0,0,0.2);
         }
         .btn-tech { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 10px; background: #1b5e20; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .user-loc { width: 16px; height: 16px; background: #007bff; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 15px #007bff; animation: pulse 1.5s infinite; }
@@ -19,7 +26,9 @@
         .rotulo-hd { color: black !important; font-weight: 900 !important; font-size: 15px !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; pointer-events: none; }
         #legenda-tiros { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 11px; }
         .cor-box { width: 12px; height: 12px; display: inline-block; margin-right: 5px; border: 1px solid #000; }
-        .update-tag { text-align: center; font-size: 10px; color: #666; margin-top: 8px; font-style: italic; }
+        .popup-table { font-size: 12px; border-collapse: collapse; width: 100%; }
+        .popup-table td { padding: 4px; border-bottom: 1px solid #eee; }
+        .popup-table b { color: #1b5e20; }
     </style>
     
     
@@ -37,7 +46,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_835fdfe172c7d7929daab96400aae3ed {
+                #map_08515c0ab37cb580ee093aef2ed5767d {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -75,12 +84,13 @@
     
     
     <div id="painel">
-        <div style="text-align:center;"><b style="color:#1b5e20; font-size:16px;">SISTEMA CLEALCO</b></div>
+        <button id="btn-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        <div style="text-align:center;"><b style="color:#1b5e20; font-size:16px;">SISTEMA TECH CLEALCO</b></div>
         <hr style="margin: 10px 0;">
-        <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda..." style="width:100%; padding:10px; border-radius:8px; border:1fr solid #ccc;">
+        <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
         <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
         <button class="btn-tech" onclick="minhaPosicao()"><i class="fas fa-location-arrow"></i> ONDE ESTOU?</button>
-        <button class="btn-tech" style="background:#444" onclick="irParaRota()"><i class="fas fa-route"></i> ROTA NO GOOGLE</button>
+        <button class="btn-tech" style="background:#444" onclick="irParaRota()"><i class="fas fa-route"></i> ROTA GOOGLE</button>
         <div style="font-size: 11px; margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
             <label><input type="radio" name="tema" onclick="mudarTema(1)" checked> Tiros</label>
             <label><input type="radio" name="tema" onclick="mudarTema(2)"> Talhões</label>
@@ -92,8 +102,8 @@
             <span class="cor-box" style="background:#00ff00"></span> 301-450m (Longo)<br>
             <span class="cor-box" style="background:#00fffa"></span> >450m (Extra)
         </div>
-        <button class="btn-tech" style="background:#eee; color:#333; height:30px; font-size:10px;" onclick="location.reload(true)">🔄 SYNC / RESET</button>
-        <div class="update-tag">📅 Atualizado em: 24/04/2026 09:05</div>
+        <button class="btn-tech" style="background:#eee; color:#333; height:30px; font-size:10px; margin-top:15px;" onclick="location.reload(true)">🔄 SYNC / RESET</button>
+        <div style="text-align:center; font-size:9px; color:#666; margin-top:8px; font-style:italic;">📅 Atualizado em: 24/04/2026 09:16</div>
     </div>
     
     
@@ -114,6 +124,13 @@
     }
 
     var mapObj, userMarker, farmCenter = null, tilesCarregados = new Set(), filtroFazenda = "", temaAtivo = 1, camadaDivisas = null, camadasLinhas = [], marcadoresLabels = [];
+
+    function toggleMenu() { 
+        document.getElementById('painel').classList.toggle('minimizado');
+        const icon = document.querySelector('#btn-toggle i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-chevron-right');
+    }
 
     $(document).ready(function() {
         setTimeout(function() {
@@ -144,7 +161,14 @@
         $.getJSON("divisas_split/divisas_" + filtroFazenda.replace(/ /g, "_") + ".json", data => {
             camadaDivisas = L.geoJson(data, { 
                 pane: 'pane_divisas', style: { color: "black", weight: 3, fillOpacity: 0.1 },
-                onEachFeature: (f,l) => l.bindPopup("<b>TALHÃO:</b> " + f.properties.TALHAO)
+                onEachFeature: (f,l) => {
+                    let h = "<b>DETALHES DO TALHÃO</b><hr><table class='popup-table'>";
+                    for (var key in f.properties) {
+                        h += "<tr><td><b>" + key + ":</b></td><td>" + f.properties[key] + "</td></tr>";
+                    }
+                    h += "</table>";
+                    l.bindPopup(h);
+                }
             }).addTo(mapObj);
             farmCenter = camadaDivisas.getBounds().getCenter();
             mapObj.fitBounds(camadaDivisas.getBounds());
@@ -157,16 +181,9 @@
         camadasLinhas.forEach(c => c.eachLayer(l => {
             let p = l.feature.properties;
             let m = s && p['FAZENDA'].toString().trim().toUpperCase() === filtroFazenda;
-            l.setStyle({ 
-                opacity: m ? 0.8 : 0, 
-                weight: m ? 1 : 0, 
-                color: (temaAtivo == 1 ? getCorTiro(p['CLASSE']) : p.color_talhao), 
-                interactive: m 
-            });
+            l.setStyle({ opacity: m ? 0.8 : 0, weight: m ? 1 : 0, color: (temaAtivo == 1 ? getCorTiro(p['CLASSE']) : p.color_talhao), interactive: m });
         }));
-        
         marcadoresLabels.forEach(m => { 
-            // Rótulo SÓ aparece se for Tema 2 (Talhões)
             if(s && temaAtivo == 2 && m.options.alt === filtroFazenda) m.addTo(mapObj); 
             else mapObj.removeLayer(m); 
         });
@@ -203,20 +220,18 @@
     }
 
     function mudarTema(t) { temaAtivo = t; refreshVisual(); }
-    function toggleDivisas() { if(camadaDivisas) { if(document.getElementById('chk_divisas').checked) mapObj.addLayer(camadaDivisas); else mapObj.removeLayer(camadaDivisas); } }
-    function toggleSatelite() { mapObj.eachLayer(l => { if(l._url && l._url.includes('google')) { if(document.getElementById('chk_satelite').checked) mapObj.addLayer(l); else mapObj.removeLayer(l); } }); }
     
     </script>
     
     
-            <div class="folium-map" id="map_835fdfe172c7d7929daab96400aae3ed" ></div>
+            <div class="folium-map" id="map_08515c0ab37cb580ee093aef2ed5767d" ></div>
         
 </body>
 <script>
     
     
-            var map_835fdfe172c7d7929daab96400aae3ed = L.map(
-                "map_835fdfe172c7d7929daab96400aae3ed",
+            var map_08515c0ab37cb580ee093aef2ed5767d = L.map(
+                "map_08515c0ab37cb580ee093aef2ed5767d",
                 {
                     center: [-21.57265, -50.37255],
                     crs: L.CRS.EPSG3857,
@@ -233,7 +248,7 @@
 
         
     
-            var tile_layer_bd4a0f8c90810dff3cafc6879d83ae62 = L.tileLayer(
+            var tile_layer_e9996f5d4ae416038efb4e0e2a5dac07 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -250,10 +265,10 @@
             );
         
     
-            tile_layer_bd4a0f8c90810dff3cafc6879d83ae62.addTo(map_835fdfe172c7d7929daab96400aae3ed);
+            tile_layer_e9996f5d4ae416038efb4e0e2a5dac07.addTo(map_08515c0ab37cb580ee093aef2ed5767d);
         
     
-            var tile_layer_17484f39dbd1a433a6f836861c976fb0 = L.tileLayer(
+            var tile_layer_6c05fa04305d6b9776a79a60359ff5d4 = L.tileLayer(
                 "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
                 {
   "minZoom": 0,
@@ -270,7 +285,7 @@
             );
         
     
-            tile_layer_17484f39dbd1a433a6f836861c976fb0.addTo(map_835fdfe172c7d7929daab96400aae3ed);
+            tile_layer_6c05fa04305d6b9776a79a60359ff5d4.addTo(map_08515c0ab37cb580ee093aef2ed5767d);
         
 </script>
 </html>
