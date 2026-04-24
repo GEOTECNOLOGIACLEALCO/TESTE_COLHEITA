@@ -15,24 +15,26 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         #painel.minimizado { transform: translateX(-285px); }
-        #btn-toggle { position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white; border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; }
+        #btn-toggle { 
+            position: absolute; right: -50px; top: 10px; background: #1b5e20; color: white;
+            border: none; width: 45px; height: 45px; cursor: pointer; border-radius: 12px; font-size: 20px;
+        }
         .btn-tech { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 10px; background: #1b5e20; color: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         
-        /* GPS ULTRA */
+        /* GPS ULTRA DESTACADO */
         .user-loc-container { display: flex; align-items: center; justify-content: center; }
         .user-loc-dot { width: 18px; height: 18px; background: #007bff; border: 3px solid white; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.5); z-index: 2; }
-        .user-loc-pulse { position: absolute; width: 40px; height: 40px; background: rgba(0, 123, 255, 0.4); border-radius: 50%; animation: pulse-gps 2s infinite; z-index: 1; }
+        .user-loc-pulse { position: absolute; width: 45px; height: 45px; background: rgba(0, 123, 255, 0.4); border-radius: 50%; animation: pulse-gps 2s infinite; z-index: 1; }
         @keyframes pulse-gps { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
         
         .rotulo-hd { color: black !important; font-weight: 900 !important; font-size: 15px !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; pointer-events: none; }
-        #legenda-tiros { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 11px; }
+        #legenda-tiros { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 11px; border: 1px solid #eee; }
         .cor-box { width: 12px; height: 12px; display: inline-block; margin-right: 5px; border: 1px solid #000; }
         .popup-table { font-size: 11px; border-collapse: collapse; width: 100%; }
         .popup-table td { padding: 3px; border-bottom: 1px solid #eee; }
         
-        /* BOTÃO DE INSTALAÇÃO */
-        #btn-install { display: none; background: #ff9800; margin-bottom: 15px; animation: bounce 2s infinite; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
+        /* BOTÃO DOWNLOAD */
+        #btn-download { display: none; background: #ff9800; margin-bottom: 10px; border: 2px solid white; }
     </style>
     
     
@@ -50,11 +52,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-<<<<<<< Updated upstream
-                #map_2ae1b333b392230b103d80ccb6b0d04a {
-=======
-                #map_720146112bbdba50beeac2d8886d35a6 {
->>>>>>> Stashed changes
+                #map_883f5e4a30dcdc0e9a65cbac5fdc9ef5 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -96,16 +94,12 @@
         <div style="text-align:center;"><b style="color:#1b5e20; font-size:16px;">COLHEITA CLEALCO</b></div>
         <hr style="margin: 10px 0;">
         
-        <button id="btn-install" class="btn-tech" onclick="installPWA()">
-            <i class="fas fa-cloud-download-alt"></i> BAIXAR APP OFFLINE
+        <button id="btn-download" class="btn-tech" onclick="installPWA()">
+            <i class="fas fa-download"></i> BAIXAR APP OFFLINE
         </button>
 
         <input list="lista_fazendas" id="input_fazenda" oninput="atualizarMapa()" placeholder="🔍 Localizar Fazenda..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc;">
-<<<<<<< Updated upstream
         <datalist id="lista_fazendas"><option value="100453"><option value="107383"><option value="202948"></datalist>
-=======
-        <datalist id="lista_fazendas"><option value="100397 - 20039 - 200503"><option value="100453"><option value="100474"><option value="100536"><option value="100542"><option value="100543"><option value="100565"><option value="100646"><option value="100862"><option value="107383"><option value="200036"><option value="200070"><option value="200085"><option value="200096"><option value="200106"><option value="200231"><option value="200234 - 100640 - 201288 - 20"><option value="200238"><option value="200265"><option value="200349"><option value="200365"><option value="200378"><option value="200473"><option value="200498"><option value="200501"><option value="200506"><option value="200507"><option value="200518"><option value="200526"><option value="200533"><option value="200560"><option value="200661"><option value="200800"><option value="200841"><option value="201021"><option value="201039"><option value="201104"><option value="201145"><option value="201147"><option value="201227"><option value="201244"><option value="201299"><option value="201303"><option value="201359"><option value="201431"><option value="201491"><option value="201495"><option value="201496"><option value="201499"><option value="202024"><option value="202076"><option value="202271"><option value="202303"><option value="202330"><option value="202431"><option value="202454 - 202471"><option value="202517"><option value="202527"><option value="202598"><option value="202617"><option value="202618"><option value="202783"><option value="202788"><option value="202806"><option value="202807"><option value="202813"><option value="202846"><option value="202848"><option value="202906"><option value="202944"><option value="202948"><option value="203482"><option value="203938"><option value="203976"><option value="206822"><option value="206823"><option value="207059"><option value="207126"><option value="207160"><option value="207251"><option value="207325"><option value="207340"><option value="207366"><option value="207367"><option value="207384"><option value="207484"><option value="207485"><option value="207486"><option value="207552"><option value="207635"><option value="207643"><option value="207748"><option value="207750"><option value="207870"><option value="300002"><option value="300012"><option value="300022"><option value="300044"><option value="300094"><option value="300126"><option value="300162"><option value="300175"><option value="300246"><option value="300249"><option value="300358"><option value="300424"><option value="300434"><option value="300454"><option value="300492"><option value="300515"><option value="300534"><option value="300643"><option value="300669"><option value="300671"><option value="300680"><option value="300725"><option value="300776"><option value="300838"><option value="300952"><option value="301034"><option value="301053"><option value="301058"><option value="301243"><option value="301274"><option value="301428"><option value="301446"><option value="301462"><option value="301466"><option value="301474"><option value="301482"><option value="301505"><option value="301516"><option value="301648"><option value="301674"><option value="301679"><option value="301716"><option value="301769"><option value="301880"><option value="301883"><option value="301903"><option value="301941"><option value="302024"><option value="302044"><option value="302162"><option value="302173"><option value="302192"><option value="302199"><option value="302210"><option value="302217"><option value="302238"><option value="302240"><option value="302243"><option value="302245"><option value="302247"><option value="302341"><option value="302342"><option value="302356"><option value="302379"><option value="302418"><option value="302429"><option value="302435"><option value="302446"><option value="302450"><option value="302458"><option value="302515"><option value="302520"><option value="302531"><option value="302537"><option value="302538"><option value="302542"><option value="302552"><option value="302553"><option value="302596"><option value="302616"><option value="302621"><option value="302624"><option value="302657"><option value="302658"><option value="302696"><option value="302814"><option value="302836"><option value="302843"><option value="302860"><option value="302864"><option value="302871"><option value="302879"><option value="302915"><option value="302917"><option value="302947"><option value="302953"><option value="302964"><option value="302971"><option value="302979 - 302980"><option value="302981"><option value="302988"><option value="303026"><option value="303104"><option value="303225"><option value="303246"><option value="303273"><option value="303274"><option value="303313"><option value="303315"><option value="303322"><option value="303328"><option value="303333"><option value="303336"><option value="303342"><option value="303350"><option value="303378"><option value="303382"><option value="303394"><option value="303400"><option value="303402"><option value="303413"><option value="303468"><option value="303474"><option value="303475"><option value="303508"><option value="303552"><option value="303553"><option value="303580"><option value="303583"><option value="303597"><option value="303618"><option value="303634"><option value="303657"><option value="303667"><option value="303723"><option value="303725"><option value="303767"><option value="303776"><option value="303795"><option value="303809"><option value="303941"><option value="303958"><option value="303966"><option value="303968"><option value="303986"><option value="305077"><option value="305079"><option value="305101"><option value="305105"><option value="305108"><option value="305116"><option value="305223"><option value="305252"><option value="305283"><option value="305309"><option value="305428"><option value="305450"><option value="305536"><option value="305611"><option value="305680"><option value="305751"><option value="305885"><option value="306170"><option value="306179"><option value="306184"><option value="306185"><option value="306195"><option value="306203"><option value="306300"><option value="306311"><option value="306319"><option value="306327"><option value="306336"><option value="306344"><option value="306347"><option value="306350"><option value="306357"><option value="306421"><option value="306424"><option value="306425"><option value="306477"><option value="306478"><option value="306488"><option value="306502"><option value="306513"><option value="306519"><option value="306523"><option value="306539"><option value="306544"><option value="306548"><option value="306558"><option value="306565"><option value="306570"><option value="306629"><option value="306642"><option value="306700"><option value="306711"><option value="306734"><option value="306762"><option value="306796"><option value="306799"><option value="306811"><option value="306817"><option value="306820"><option value="306821"><option value="306824"><option value="306827"><option value="306829"><option value="306838"><option value="306840"><option value="306844"><option value="306846"><option value="306848"><option value="306849"><option value="306850"><option value="306851"><option value="306853"><option value="306854"><option value="306855"><option value="306856"><option value="306857"><option value="306859"><option value="306860"><option value="306861"><option value="306863"><option value="306864"><option value="306867"><option value="306868"><option value="306869"><option value="306870"><option value="306871"><option value="306872"><option value="306874"><option value="306879"><option value="306884"><option value="306887"><option value="306888"><option value="306889"><option value="306891"><option value="306894"><option value="306899"><option value="306902"><option value="306918"><option value="306942"><option value="306947"><option value="306966"><option value="307037"><option value="307038"><option value="307039"><option value="307042"><option value="307048"><option value="307049"><option value="307050"><option value="307052"><option value="307064"><option value="307068"><option value="307069"><option value="307073"><option value="307074"><option value="307079"><option value="307090"><option value="307093"><option value="307097"><option value="307100"><option value="307102"><option value="307103"><option value="307104"><option value="307111"><option value="307115"><option value="307118"><option value="307125"><option value="307134"><option value="307136"><option value="307137"><option value="307138"><option value="307143"><option value="307144"><option value="307147"><option value="307155"><option value="307157"><option value="307158"><option value="307163"><option value="307164"><option value="307167"><option value="307170"><option value="307178"><option value="307180"><option value="307182"><option value="307183"><option value="307197"><option value="307198"><option value="307205"><option value="307207"><option value="307211"><option value="307212"><option value="307213"><option value="307214"><option value="307218"><option value="307225"><option value="307269"><option value="307271"><option value="307272"><option value="307278"><option value="307286"><option value="307291"><option value="307304"><option value="307306"><option value="307310"><option value="307311"><option value="307313"><option value="307314"><option value="307321"><option value="307323"><option value="307328"><option value="307333"><option value="307335"><option value="307337"><option value="307338"><option value="307339"><option value="307345"><option value="307346"><option value="307347"><option value="307351"><option value="307353"><option value="307354"><option value="307364"><option value="307365"><option value="307368"><option value="307372"><option value="307374"><option value="307377"><option value="307378"><option value="307379"><option value="307381"><option value="307386"><option value="307387"><option value="307393"><option value="307397"><option value="307400"><option value="307401"><option value="307402"><option value="307403"><option value="307404"><option value="307407"><option value="307411"><option value="307413"><option value="307415"><option value="307421"><option value="307422"><option value="307423"><option value="307424"><option value="307427"><option value="307428"><option value="307432"><option value="307433"><option value="307438"><option value="307453"><option value="307458"><option value="307463"><option value="307476"><option value="307481"><option value="307482"><option value="307488"><option value="307490"><option value="307492"><option value="307494"><option value="307495"><option value="307499"><option value="307501"><option value="307504"><option value="307505"><option value="307506"><option value="307507"><option value="307509"><option value="307511"><option value="307520"><option value="307524"><option value="307526"><option value="307527"><option value="307528"><option value="307530"><option value="307531"><option value="307537"><option value="307540"><option value="307542"><option value="307543"><option value="307544"><option value="307546"><option value="307547"><option value="307548"><option value="307549"><option value="307550"><option value="307553"><option value="307554"><option value="307557"><option value="307563"><option value="307565"><option value="307571"><option value="307588"><option value="307592"><option value="307598"><option value="307601"><option value="307605"><option value="307606"><option value="307607"><option value="307609"><option value="307610"><option value="307615"><option value="307618"><option value="307619"><option value="307620"><option value="307622"><option value="307625"><option value="307626"><option value="307631"><option value="307636"><option value="307639"><option value="307657"><option value="307664"><option value="307687"><option value="307694"><option value="307695"><option value="307696"><option value="307697"><option value="307698"><option value="307713"><option value="307720"><option value="307726"><option value="307727"><option value="307728"><option value="307730"><option value="307734"><option value="307735"><option value="307738"><option value="307740"><option value="307743"><option value="307745"><option value="307747"><option value="307756"><option value="307757"><option value="307758"><option value="307759"><option value="307760"><option value="307761"><option value="307762"><option value="307766"><option value="307767"><option value="307769"><option value="307770"><option value="307774"><option value="307779"><option value="307783"><option value="307784"><option value="307785"><option value="307786"><option value="307792"><option value="307793"><option value="307797"><option value="307798"><option value="307799"><option value="307802"><option value="307805"><option value="307806"><option value="307808"><option value="307812"><option value="307820"><option value="307829"><option value="307832"><option value="307833"><option value="307834"><option value="307869"><option value="307871"><option value="307872"><option value="307882"><option value="307883"><option value="307885"><option value="307886"><option value="307893"><option value="307943"><option value="307960"><option value="307963"><option value="307982"><option value="307990"><option value="308009"><option value="308010"><option value="308040"><option value="308054"></datalist>
->>>>>>> Stashed changes
         <button class="btn-tech" onclick="minhaPosicao()" style="background:#007bff"><i class="fas fa-location-crosshairs"></i> ONDE ESTOU?</button>
         <button class="btn-tech" style="background:#444" onclick="irParaRota()"><i class="fas fa-route"></i> ROTA GOOGLE</button>
         
@@ -120,12 +114,8 @@
             <span class="cor-box" style="background:#00ff00"></span> 301-450m (Longo)<br>
             <span class="cor-box" style="background:#00fffa"></span> >450m (Extra)
         </div>
-        <button class="btn-tech" style="background:#eee; color:#333; height:30px; font-size:10px; margin-top:15px;" onclick="sincronizarManual()">🔄 ATUALIZAR MAPA</button>
-<<<<<<< Updated upstream
-        <div style="text-align:center; font-size:9px; color:#666; margin-top:8px; font-style:italic;">📅 Versão: 24/04/2026 10:25</div>
-=======
-        <div style="text-align:center; font-size:9px; color:#666; margin-top:8px; font-style:italic;">📅 Versão: 24/04/2026 13:38</div>
->>>>>>> Stashed changes
+        <button class="btn-tech" style="background:#eee; color:#333; height:30px; font-size:10px; margin-top:15px;" onclick="location.reload(true)">🔄 SYNC / ATUALIZAR</button>
+        <div style="text-align:center; font-size:9px; color:#666; margin-top:8px; font-style:italic;">📅 Versão: 24/04/2026 14:05</div>
     </div>
     
     
@@ -133,36 +123,32 @@
     <script>
     
     let deferredPrompt;
-    // REGISTRO E DETECTOR DE ATUALIZAÇÃO
+    // SISTEMA DE ATUALIZAÇÃO E DOWNLOAD
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js').then(reg => {
             reg.onupdatefound = () => {
                 const newWorker = reg.installing;
                 newWorker.onstatechange = () => {
                     if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        if (confirm("Geotecnologia enviou uma nova versão do mapa! Atualizar agora?")) {
-                            window.location.reload();
-                        }
+                        if (confirm("Versão nova detectada! Quer atualizar agora?")) window.location.reload();
                     }
                 };
             };
         });
     }
 
-    // CAPTURA O EVENTO DE INSTALAÇÃO (DOWNLOAD)
+    // CAPTURA O EVENTO DE "DOWNLOAD"
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        document.getElementById('btn-install').style.display = 'flex';
+        document.getElementById('btn-download').style.display = 'flex';
     });
 
     async function installPWA() {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-            document.getElementById('btn-install').style.display = 'none';
-        }
+        if (outcome === 'accepted') document.getElementById('btn-download').style.display = 'none';
         deferredPrompt = null;
     }
 
@@ -224,6 +210,7 @@
             let m = s && p['FAZENDA'].toString().trim().toUpperCase() === filtroFazenda;
             l.setStyle({ opacity: m ? 0.8 : 0, weight: m ? 1 : 0, color: (temaAtivo == 1 ? getCorTiro(p['CLASSE']) : p.color_talhao), interactive: m });
         }));
+        // AJUSTE: Rótulo SÓ no Tema 2
         marcadoresLabels.forEach(m => { 
             if(s && temaAtivo == 2 && m.options.alt === filtroFazenda) m.addTo(mapObj); 
             else mapObj.removeLayer(m); 
@@ -252,18 +239,8 @@
         mapObj.on('locationfound', e => {
             if (userMarker) mapObj.removeLayer(userMarker);
             var iconHtml = '<div class="user-loc-container"><div class="user-loc-pulse"></div><div class="user-loc-dot"></div></div>';
-            userMarker = L.marker(e.latlng, { 
-                icon: L.divIcon({ className: '', html: iconHtml, iconSize: [40, 40], iconAnchor: [20, 20] }), 
-                pane: 'pane_gps' 
-            }).addTo(mapObj);
+            userMarker = L.marker(e.latlng, { icon: L.divIcon({ className: '', html: iconHtml, iconSize: [40, 40] }), pane: 'pane_gps' }).addTo(mapObj);
         });
-    }
-
-    function sincronizarManual() {
-        if (confirm("Isso vai limpar o mapa antigo e baixar o novo. Continuar?")) {
-            caches.keys().then(names => { for (let name of names) caches.delete(name); });
-            window.location.reload(true);
-        }
     }
 
     function irParaRota() {
@@ -276,25 +253,16 @@
     </script>
     
     
-<<<<<<< Updated upstream
-            <div class="folium-map" id="map_2ae1b333b392230b103d80ccb6b0d04a" ></div>
-=======
-            <div class="folium-map" id="map_720146112bbdba50beeac2d8886d35a6" ></div>
->>>>>>> Stashed changes
+            <div class="folium-map" id="map_883f5e4a30dcdc0e9a65cbac5fdc9ef5" ></div>
         
 </body>
 <script>
     
     
-<<<<<<< Updated upstream
-            var map_2ae1b333b392230b103d80ccb6b0d04a = L.map(
-                "map_2ae1b333b392230b103d80ccb6b0d04a",
-=======
-            var map_720146112bbdba50beeac2d8886d35a6 = L.map(
-                "map_720146112bbdba50beeac2d8886d35a6",
->>>>>>> Stashed changes
+            var map_883f5e4a30dcdc0e9a65cbac5fdc9ef5 = L.map(
+                "map_883f5e4a30dcdc0e9a65cbac5fdc9ef5",
                 {
-                    center: [-21.5121, -50.62179],
+                    center: [-21.57265, -50.37255],
                     crs: L.CRS.EPSG3857,
                     ...{
   "zoom": 15,
@@ -309,11 +277,7 @@
 
         
     
-<<<<<<< Updated upstream
-            var tile_layer_9bac9709df51a7e81e75f4d5adee8670 = L.tileLayer(
-=======
-            var tile_layer_b1f263ab06f7148f3d810c2d96c266be = L.tileLayer(
->>>>>>> Stashed changes
+            var tile_layer_23b9a917fa3263120b54cefbb909af5a = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -330,17 +294,10 @@
             );
         
     
-<<<<<<< Updated upstream
-            tile_layer_9bac9709df51a7e81e75f4d5adee8670.addTo(map_2ae1b333b392230b103d80ccb6b0d04a);
+            tile_layer_23b9a917fa3263120b54cefbb909af5a.addTo(map_883f5e4a30dcdc0e9a65cbac5fdc9ef5);
         
     
-            var tile_layer_25d6e0ef76324e0341d234efa0244b91 = L.tileLayer(
-=======
-            tile_layer_b1f263ab06f7148f3d810c2d96c266be.addTo(map_720146112bbdba50beeac2d8886d35a6);
-        
-    
-            var tile_layer_4a31d4944ebb6689b65c627e1f5ca2c2 = L.tileLayer(
->>>>>>> Stashed changes
+            var tile_layer_628733e5094d45d28483c434862462eb = L.tileLayer(
                 "https://mt1.google.com/vt/lyrs=y\u0026x={x}\u0026y={y}\u0026z={z}",
                 {
   "minZoom": 0,
@@ -357,11 +314,7 @@
             );
         
     
-<<<<<<< Updated upstream
-            tile_layer_25d6e0ef76324e0341d234efa0244b91.addTo(map_2ae1b333b392230b103d80ccb6b0d04a);
-=======
-            tile_layer_4a31d4944ebb6689b65c627e1f5ca2c2.addTo(map_720146112bbdba50beeac2d8886d35a6);
->>>>>>> Stashed changes
+            tile_layer_628733e5094d45d28483c434862462eb.addTo(map_883f5e4a30dcdc0e9a65cbac5fdc9ef5);
         
 </script>
 </html>
